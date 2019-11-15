@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		.imgs img{
+			width: 590px;
+			height:470px ;
+			display: block;
+			/* vertical-align: middle; *//* 文本的垂直居中 */
+		}
+		ul{
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+		.box{
+			width: 590px;
+			height: 470px;
+			position: relative;
+			border:10px solid orange;
+			margin: 20px auto;
+			overflow: hidden;
+		}
+		.imgs{
+			position: absolute;
+			display:flex;
+			top: 0;
+			transition: 1s;
+		}
+		#carouse102 .imgs{
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		#carouse102 .imgs li{
+			position: absolute;
+			top: 0;
+			left: 0;
+			opacity: 0;
+			z-index:-1;
+			transition: 1s linear;
+		}
+		#carouse102 .imgs .show{
+			opacity: 1;
+			z-index: 0;
+		}
+		.arrows span{
+			position: absolute;
+			top: 215px;
+			color: #fff;
+			background: #000;
+			text-align: center;
+			width: 30px;
+			height: 40px;
+			line-height: 40px;
+			font-size: 36px;
+			vertical-align: middle;
+			cursor: pointer;/* 鼠标指针（小手） */
+			font-family: 黑体;
+			opacity: 0;
+		}
+		.box:hover .arrows span{
+			opacity: 0.3;
+		}
+		.box .arrows span:hover{
+			opacity: 1;
+		}
+		.arrows .left{
+			left: 0;
+		}
+		.arrows .right{
+			right: 0;
+		}
+		.dots{
+			position: absolute;
+			display: flex;
+			width: 100%;
+			justify-content: center;
+			bottom: 20px;
+		}
+		.dots li{
+			width: 30px;
+			height: 30px;
+			line-height: 30px;
+			font-size: 24px;
+			text-align: center;
+			background: orange;
+			border-radius: 50%;
+			border: 3px solid #ddd;
+			margin: 0 2px;
+			cursor: pointer;
+		}
+		#carouse102 .dots li{
+			width: 30px;
+			height: 30px;
+			line-height: 30px;
+			font-size: 24px;
+			text-align: center;
+			background: orange;
+			border-radius: 50%;
+			border: 3px solid #ddd;
+			margin: 0 2px;
+			cursor: pointer;
+			transition: 1s linear;
+		}
+		.dots .act{
+			background: red;
+		}
+		#carouse102 .dots .act{
+			background: red;
+		}
+
+
+
+
+
+	</style>
+</head>
+<body>
+	<div id="carouse101" class="box">
+		<!-- ul.imgs>li*5>a[href=#]>img[src=images/$.jpg][alt=$]展开后是↓ -->
+		<ul class="imgs" style="left:0">
+			<li><a href="#"><img src="images/1.jpg" alt="1"></a></li>
+			<li><a href="#"><img src="images/2.jpg" alt="2"></a></li>
+			<li><a href="#"><img src="images/3.jpg" alt="3"></a></li>
+			<li><a href="#"><img src="images/4.jpg" alt="4"></a></li>
+			<li><a href="#"><img src="images/5.jpg" alt="5"></a></li>
+		</ul>
+		<!-- ↑↑↑ -->
+		<!-- div.arrows>>span.left{&lt;}+span.right{&gt}展开后是↓↓↓ -->
+		<div class="arrows">
+			<span class="left">&lt;</span>
+			<span class="right">&gt;</span>
+		</div>
+		<!-- ↑↑↑ -->
+		<!-- ul.dots>li{$}*5展开后是↓↓↓ -->
+		<ul class="dots">
+			<li class="act">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+		</ul>
+		<!-- ↑↑↑ -->
+	</div>
+
+		<div id="carouse102" class="box">
+		<!-- ul.imgs>li*5>a[href=#]>img[src=images/$.jpg][alt=$]展开后是↓ -->
+		<ul class="imgs" style="left:0">
+			<li class="show"><a href="#"><img src="images/1.jpg" alt="1"></a></li>
+			<li><a href="#"><img src="images/2.jpg" alt="2"></a></li>
+			<li><a href="#"><img src="images/3.jpg" alt="3"></a></li>
+			<li><a href="#"><img src="images/4.jpg" alt="4"></a></li>
+			<li><a href="#"><img src="images/5.jpg" alt="5"></a></li>
+		</ul>
+		<!-- ↑↑↑ -->
+		<!-- div.arrows>>span.left{&lt;}+span.right{&gt}展开后是↓↓↓ -->
+		<div class="arrows">
+			<span class="left">&lt;</span>
+			<span class="right">&gt;</span>
+		</div>
+		<!-- ↑↑↑ -->
+		<!-- ul.dots>li{$}*5展开后是↓↓↓ -->
+		<ul class="dots">
+			<li class="act">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+		</ul>
+		<!-- ↑↑↑ -->
+	</div>
+
+	<script type="text/javascript">
+		function lbt1(id){
+    //编写思路，index值，根据index值显示对应的图片并设置按钮特殊样式
+		//轮播图的主要工作就是调整图片列表的定位或是显隐
+		//获取轮播图显示区域
+		var box=document.getElementById('carouse101');
+		//图片列表
+		var imgs=box.getElementsByClassName('imgs')[0];
+		//左箭头
+		var arrowL=box.getElementsByClassName('left')[0];
+		//右箭头
+		var arrowR=box.getElementsByClassName('right')[0];
+		//按钮容器
+		var dots=box.getElementsByClassName('dots')[0];
+		//按钮列表
+		var btns=dots.getElementsByTagName('li');
+		var imgWidth=590;//一幅图的宽度
+		var index=0;//当前显示的图片序号，0号开始
+		var n=btns.length;//图片数量/按钮数量
+		var index=0;
+		var t=null;//时间停止
+		var s=2;//时间几秒
+		
+
+		function showImg(index){
+			imgs.style.left=-1*index*imgWidth+'px';
+		}
+		function showBtn(index){
+	  	for(var i=0;i<btns.length;i++){
+	  		btns[i].removeAttribute('class');
+	  	}
+	  	btns[index].className='act';
+	  }
+		arrowR.onclick=function(){
+
+			// if(index<n-1){
+			// 	index++;
+			// 	}else{
+			// 		index=0;
+			// 	}
+			// 	imgs.style.left=-1*index*imgWidth+'px';
+			// 	简化↓↓↓
+			index=(index<n-1)?index+1:0;
+			showImg(index);
+			showBtn(index);
+			}
+			arrowL.onclick=function(){
+			// if(index>0){
+			// 	index--;
+			// 	}else{
+			// 		index=n-1;
+			// 	}
+			// 	imgs.style.left=-1*index*imgWidth+'px';
+			// 
+			// 简化↓↓↓
+			index=index>0?index-1:n-1;
+			showImg(index);
+			showBtn(index);
+		}
+		//时间循环2秒
+	  box.onmouseover=function(){
+	  	clearInterval(t);
+	  }
+	  box.onmouseout=function(){
+		t=setInterval(arrowR.onclick,s*1000);
+		}
+		box.onmouseout();
+
+
+
+		for(var i=0;i<btns.length;i++){
+			btns[i].index=i;
+			btns[i].onclick=function(){
+				index=this.index;
+				showImg(index);
+				showBtn(index);
+			}
+		}
+	}
+
+		function lbt2(id){
+			//编写思路，index值，根据index值显示对应的图片并设置按钮特殊样式
+		//轮播图的主要工作就是调整图片列表的定位或是显隐
+		//获取轮播图显示区域
+		var box=document.getElementById('carouse102');
+		//图片列表
+		var imgsbox=box.getElementsByClassName('imgs')[0];//图片列表区域
+		//左箭头
+		var imgs=imgsbox.getElementsByTagName('li');//图片列表
+		var arrowL=box.getElementsByClassName('left')[0];
+		//右箭头
+		var arrowR=box.getElementsByClassName('right')[0];
+		//按钮容器
+		var dots=box.getElementsByClassName('dots')[0];
+		//按钮列表
+		var btns=dots.getElementsByTagName('li');
+		var index=0;//当前显示的图片序号，0号开始
+		var n=btns.length;//图片数量/按钮数量
+		var t=null;//时间停止
+		var s=2;//时间几秒
+		function showImg(index){
+			for(var i=0;i<n;i++){
+				imgs[i].removeAttribute('class');
+			}
+			imgs[index].className='show';
+		}
+		function showBtn(index){
+	  	for(var i=0;i<btns.length;i++){
+	  		btns[i].removeAttribute('class');
+	  	}
+	  	btns[index].className='act';
+	  }
+		arrowR.onclick=function(){
+			index=(index<n-1)?index+1:0;
+			showImg(index);
+			showBtn(index);
+			}
+			arrowL.onclick=function(){
+			index=index>0?index-1:n-1;
+			showImg(index);
+			showBtn(index);
+		}
+	  box.onmouseover=function(){
+	  	clearInterval(t);
+	  }
+	  box.onmouseout=function(){
+		t=setInterval(arrowR.onclick,s*1000);
+		}
+		box.onmouseout();
+		for(var i=0;i<btns.length;i++){
+			btns[i].index=i;
+			btns[i].onclick=function(){
+				index=this.index;
+				showImg(index);
+				showBtn(index);
+			}
+		}
+		}
+		lbt1('carouse101');
+		lbt2('carouse102');
+	</script>
+</body>
+</html>
